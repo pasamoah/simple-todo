@@ -83,6 +83,12 @@ class TodoController extends Controller
     }
 
 
+    public function completed(Todo $todo)
+    {
+        return $todo -> completed;
+    }
+
+
     public function completedData(Todo $todo)
     {
         return $todo -> completed;
@@ -90,7 +96,7 @@ class TodoController extends Controller
 
     public function changeCompleted(Request $request, Todo $todo)
     {   
-        $todo -> completed = $request -> completed;
+        $todo -> completed = $request -> complete;
         $todo -> save();
 
     }
