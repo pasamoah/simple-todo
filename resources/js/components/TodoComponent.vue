@@ -16,11 +16,10 @@
                         </div>
                         </div>
                         </form>
-                        
-                          <div class="text-danger">
+
+                        <div class="text-danger">
                             <small>{{errorMessage[0]}}</small>
                         </div>
-                        
                     </div>
 
 <!-- Todo List -->
@@ -115,6 +114,7 @@
                 insertCompleted: '',
                 showAlert: false,
                 errorMessage: '',
+                newCompleted: ''
 
             
 
@@ -168,16 +168,18 @@
             
 
             checkCompleted(id){
-                this.insertCompleted = !this.todoResponse.completed
-                const formdata = new FormData();
-                if (this.insertCompleted == true) {
-                    this.insertCompleted = 1
-                }else{
-                    this.insertCompleted = 0
-                }
-                        formdata.append('completed', this.insertCompleted)
-                        axios.post('/change-completed/' + id, formdata).then((res)=>{
-                            
+                axios.get('/edit-completed/' + id).then((res)=>{
+                    if (res.data == 0) {
+                        this.newCompleted = 1
+                        const formdt = new FormData()
+                        formdt.append('complete', this.newCompleted)
+                        axios.post('/change-completed/' + id, formdt)
+                    }else{
+                        this.newCompleted = 0
+                        const formdt = new FormData()
+                        formdt.append('complete', this.newCompleted)
+                        axios.post('/change-completed/' + id, formdt)
+                    }
                 })
 
             }
