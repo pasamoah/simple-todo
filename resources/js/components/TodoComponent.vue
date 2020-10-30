@@ -16,6 +16,11 @@
                         </div>
                         </div>
                         </form>
+                        
+                          <div class="text-danger">
+                            <small>{{errorMessage[0]}}</small>
+                        </div>
+                        
                     </div>
 
 <!-- Todo List -->
@@ -108,7 +113,8 @@
                     title: ''
                 },
                 insertCompleted: '',
-                showAlert: false
+                showAlert: false,
+                errorMessage: '',
 
             
 
@@ -130,6 +136,8 @@
                 axios.post('/add-todo', this.form).then((res)=>{
                     this.getTodo()
                     this.form.title = null
+                }).catch(error => {
+                   this.errorMessage = Object.values(error.response.data.errors)
                 })
             },
 
