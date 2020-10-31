@@ -52,7 +52,11 @@ class TodoController extends Controller
      */
     public function show(Todo $todo)
     {
-        return Todo::all();
+    
+        $todo = DB::table('todos')
+                ->latest()
+                ->get();
+                return $todo;
     }
 
     /**
